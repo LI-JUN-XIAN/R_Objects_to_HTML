@@ -47,7 +47,7 @@ HTML_Text <- function(TX,size=16,color="black",bius="0",link="0",warp=F){
 
 ###################################
 
-HTML_Table <- function(DF){
+HTML_Table <- function(DF,GirdArrar=NA){
  
  DF[] <- lapply(DF,as.character)
  
