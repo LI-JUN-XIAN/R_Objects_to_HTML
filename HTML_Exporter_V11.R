@@ -9,7 +9,7 @@ FA <- "·L³n¥¿¶ÂÅé"
 ####################################
 
 HTML_Finish <- function(HTMLName="0",ObjList,HTMLPath="0"){
-	#Modify
+
 	if(HTMLPath != "0" & HTMLName != "0"){
 	
 		HTML_Final <- c('<HTML>','<head><title>',HTMLName,'</title></head>','<body>',ObjList,'</body></HTML>')
