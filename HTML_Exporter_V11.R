@@ -8,11 +8,11 @@ FA <- "微軟正黑體"
 ####################################
 ####################################
 
-HTML_Finish <- function(HTMLName="0",ObjList,HTMLPath="0"){
+HTML_Finish <- function(HTMLName="0",objList,HTMLPath="0"){
 
 	if(HTMLPath != "0" & HTMLName != "0"){
-	
-		HTML_Final <- c('<HTML>','<head><title>',HTMLName,'</title></head>','<body>',ObjList,'</body></HTML>')
+		if(class(objList)=="list"){ objList <- unlist(objList) }
+		HTML_Final <- c('<HTML>','<head><title>',HTMLName,'</title></head>','<body>',objList,'</body></HTML>')
 		write.table(HTML_Final,file=paste0(HTMLPath,'/',HTMLName,'.html'),quote = F,row.names = F,col.names = F)
 		
 		}
@@ -47,7 +47,7 @@ HTML_Text <- function(TX,size=16,color="black",bius="0",link="0",warp=F){
 
 ###################################
 
-HTML_Table <- function(DF){
+HTML_DFtoTable <- function(DF){
 
 #
 #以規格/條件算出打色矩陣的單元，待製作
@@ -65,20 +65,24 @@ HTML_Table <- function(DF){
 #
  ST1 <- c(ST1,'<tr style="background-color:#787878;color:white">')
  for (x in colnames(DF)){
-	ST1 <- c(ST1,'<td>')
-	ST1 <- c(ST1,x)
-	ST1 <- c(ST1,'</td>')
+ 
+	ST1 <- c(ST1,'<td>',x,'</td>')
  }
+ 
  ST1 <- c(ST1,'</tr>')
 
 for (y in (1:length(DF[[1]]))){
+
 	 ST1 <- c(ST1,'<tr>')
+
 	 for (x in DF[y,]){
-		ST1 <- c(ST1,'<td>')
-		ST1 <- c(ST1,x)
-		ST1 <- c(ST1,'</td>')
+
+		ST1 <- c(ST1,'<td>',x,'</td>')
+
  	 }
- 	ST1 <- c(ST1,'</tr>')
+
+	 ST1 <- c(ST1,'</tr>')
+
 }
 
  ST1 <- c(ST1,'</TABLE>')
@@ -112,4 +116,36 @@ HTML_Plot <- function(PlotRecod=NA,PlotName=NA,x=480,y=320,HTMLPath=NA,warp=F){
 }
 
 ####################################
-####################################
+
+HTML_TableLayout <- function(objList,cols=2){
+
+	if (length(objList)<=1){
+		
+		return(objList)
+		
+	}else{
+		
+		ST <- '<table>'
+		write.csv(objList,file='d:/error.csv')
+		for (x in 1:length(objList)){
+		
+			if (x %% cols==1){
+			
+				ST <- c(ST,'<tr><td>',objList[[x]],'</td>')
+			
+			}else if (x %% cols==0 | x == length(objList)){
+			
+				ST <- c(ST,'<td>',objList[[x]],'</td></tr>')
+			
+			}else{
+			
+				ST <- c(ST,'<td>',objList[[x]],'</td>')
+			
+			}
+				
+		}
+		
+		ST <- c(ST,'</table>')
+		return(ST)
+	}
+}
