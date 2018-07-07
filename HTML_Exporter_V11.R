@@ -8,17 +8,7 @@ FA <- "·L³n¥¿¶ÂÅé"
 ####################################
 ####################################
 
-HTML_Finish <- function(HTMLName="0",objList,HTMLPath="0"){
-
-	if(HTMLPath != "0" & HTMLName != "0"){
-		if(class(objList)=="list"){ objList <- unlist(objList) }
-		HTML_Final <- c('<HTML>','<head><title>',HTMLName,'</title></head>','<body>',objList,'</body></HTML>')
-		write.table(HTML_Final,file=paste0(HTMLPath,'/',HTMLName,'.html'),quote = F,row.names = F,col.names = F)
-		
-		}
-	}
-
-####################################
+##################Elementary Functions##################
 
 HTML_Text <- function(TX,size=16,color="black",bius="0",link="0",warp=F){ 
 
@@ -148,4 +138,55 @@ HTML_TableLayout <- function(objList,cols=2){
 		ST <- c(ST,'</table>')
 		return(ST)
 	}
+}
+
+#######################Combine Function####################
+
+HTML_Finish <- function(HTMLName="0",objList,HTMLPath="0"){
+
+	if(HTMLPath != "0" & HTMLName != "0"){
+		if(class(objList)=="list"){ objList <- unlist(objList) }
+		HTML_Final <- c('<HTML>','<head><title>',HTMLName,'</title></head>','<body>',objList,'</body></HTML>')
+		write.table(HTML_Final,file=paste0(HTMLPath,'/',HTMLName,'.html'),quote = F,row.names = F,col.names = F)
+		
+		}
+	}
+
+
+###########################
+#Texts = Texts. .................................................character vector
+#Styles = Stylesettings mapping to elements of Texts.............list
+
+HTML_Text_Composition <- function(Texts,Styles){
+
+	defaultStyle <- list(size=16,color="black",bius="0",link="0",warp=F)
+
+	finalComposition <- sapply(c(1:length(Texts)),function(x){#### 
+
+		if(x <= length(Styles)){###
+
+			Style <- sapply(names(defaultStyle),function(y){##
+
+				if (is.null(Styles[[x]][[y]])){#
+					return(defaultStyle[[y]])
+					}else{#
+					return(Styles[[x]][[y]])
+					}#
+				}##
+				)
+
+
+			return(HTML_Text(TX=Texts[x],size=Style[[1]],color=Style[[2]],bius=Style[[3]],link=Style[[4]],warp=Style[[5]]))
+
+
+			}else{###
+
+			return(HTML_Text(TX=Texts[x]))
+
+			}###
+		}####
+		)
+
+	return(finalComposition)
+
 }
