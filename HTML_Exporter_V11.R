@@ -12,7 +12,10 @@ FA <- "·L³n¥¿¶ÂÅé"
 
 HTML_Text <- function(TX,size=16,color="black",bius="0",link="0",warp=F){ 
 
-	if (sum(bius %in% c("b","i","u","s","B","I","U","S")) == length(bius)){
+	bius <- unlist(strsplit(toupper(bius),split=""))
+	bius <- unique(bius[bius %in% c("B","I","U","S")])
+
+	if (length(bius)>0){
 
 		for (x in bius){ TX <- paste0('<',x,'>',TX,'</',x,'>') }
 
