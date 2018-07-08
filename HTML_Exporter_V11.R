@@ -39,23 +39,15 @@ HTML_Text <- function(TX,size=16,color="black",bius="0",link="0",warp=F){
 	}
 
 ###################################
+#
+#依條件打顏色請在此框架外以"HTML_Text_Composition"函數完成後取代該行在塞入此函數產生表格
+#
 
 HTML_DFtoTable <- function(DF){
-
-#
-#以規格/條件算出打色矩陣的單元，待製作
-#
 
  DF[] <- lapply(DF,as.character)
  
  ST1 <- paste0('<TABLE BORDER=1 style="font-family:',FA,'">')
-#
-#ST1 <- c(ST1,'<style type="text/css">')
-#
-#.OOC{background-color:red;color:white}等打色規則與ccs指令
-#
-#ST1 <- c(ST1,'</style>')
-#
  ST1 <- c(ST1,'<tr style="background-color:#787878;color:white">')
  for (x in colnames(DF)){
  
