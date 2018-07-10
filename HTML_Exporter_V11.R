@@ -181,7 +181,7 @@ HTML_Text_Composition <- function(Texts,Styles){
 				)
 
 
-			return(HTML_Text(TX=Texts[x],size=Style[[1]],color=Style[[2]],bius=Style[[3]],link=Style[[4]],warp=as.logical(Style[[5]])))
+			return(HTML_Text(TX=Texts[x],size=as.numeric(Style[[1]]),color=Style[[2]],bius=Style[[3]],link=Style[[4]],warp=as.logical(Style[[5]])))
 
 
 			}else{###
