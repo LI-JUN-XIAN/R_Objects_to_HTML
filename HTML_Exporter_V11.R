@@ -154,6 +154,16 @@ HTML_Finish <- function(HTMLName="0",objList,HTMLPath="0"){
 
 HTML_Text_Composition <- function(Texts,Styles){
 
+	if (class(Styles)=="character"){
+
+		Styles <- strsplit(Styles,',')
+		Styles <- lapply(Styles,function(x){
+				Style <- lapply(strsplit(x,'='),'[',2)
+				names(Style) <- sapply(strsplit(x,'='),'[',1)
+				return(Style)
+			})
+		}
+
 	defaultStyle <- list(size=16,color="black",bius="0",link="0",warp=F)
 
 	finalComposition <- sapply(c(1:length(Texts)),function(x){#### 
@@ -171,7 +181,7 @@ HTML_Text_Composition <- function(Texts,Styles){
 				)
 
 
-			return(HTML_Text(TX=Texts[x],size=Style[[1]],color=Style[[2]],bius=Style[[3]],link=Style[[4]],warp=Style[[5]]))
+			return(HTML_Text(TX=Texts[x],size=Style[[1]],color=Style[[2]],bius=Style[[3]],link=Style[[4]],warp=as.logical(Style[[5]])))
 
 
 			}else{###
