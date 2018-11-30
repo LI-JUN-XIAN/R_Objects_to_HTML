@@ -1,8 +1,9 @@
 
-#¤â¨èÂ²©öHTML
-#¦rÅé²Î¤@
+#æ‰‹åˆ»ç°¡æ˜“HTML
+#å­—é«”çµ±ä¸€
 
 FA <- "Calibri"
+library(magrittr)
 
 ####################################
 ####################################
@@ -40,7 +41,7 @@ HTML_Text <- function(TX,size=16,color="black",bius="0",link="0",warp=F){
 
 ###################################
 #
-#¨Ì±ø¥ó¥´ÃC¦â½Ð¦b¦¹®Ø¬[¥~¥H"HTML_Text_Composition"¨ç¼Æ§¹¦¨«á¨ú¥N¸Ó¦æ¦b¶ë¤J¦¹¨ç¼Æ²£¥Íªí®æ
+#ä¾æ¢ä»¶æ‰“é¡è‰²è«‹åœ¨æ­¤æ¡†æž¶å¤–ä»¥"HTML_Text_Composition"å‡½æ•¸å®Œæˆå¾Œå–ä»£è©²è¡Œåœ¨å¡žå…¥æ­¤å‡½æ•¸ç”¢ç”Ÿè¡¨æ ¼
 #
 
 HTML_DFtoTable <- function(DF){
@@ -49,17 +50,25 @@ HTML_DFtoTable <- function(DF){
  
  ST1 <- paste0('<TABLE BORDER=1 style="font-family:',FA,'">')
  ST1 <- c(ST1,'<tr style="background-color:#787878;color:white">')
+
+ #
+ # Haeder <- sapply(colnames(DF),function(x){ paste0('<td>',x,"</td>") })
+ # ST1 <- c(ST1,Header)
+ #
+	
  for (x in colnames(DF)){
  
 	ST1 <- c(ST1,'<td>',x,'</td>')
  }
  
  ST1 <- c(ST1,'</tr>')
-
+	
 for (y in (1:length(DF[[1]]))){
 
 	 ST1 <- c(ST1,'<tr>')
 
+	# ST1 <- c(ST1,sapply(iris[y,],function(x){ paste0('<td>',x,"</td>") }))
+	
 	 for (x in DF[y,]){
 
 		ST1 <- c(ST1,'<td>',x,'</td>')
